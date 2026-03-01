@@ -4,3 +4,11 @@ resource "aws_vpc" "mod_vpc"{
     enable_dns_hostnames= "true"
     tags = local.vpc_final_tags
 }
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.mod_vpc.id
+
+  tags = {
+    Name = "main"
+  }
+}
