@@ -20,7 +20,7 @@ resource "aws_subnet" "public" {
   cidr_block = var.public_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev"
+    Name = "roboshop-dev-public-${data.aws_availability_zones.available[count.index]}"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "private" {
   cidr_block = var.private_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev"
+    Name = "roboshop-dev-private"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "database" {
   cidr_block = var.database_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev"
+    Name = "roboshop-dev-database"
   }
 }
 
@@ -77,13 +77,13 @@ resource "aws_nat_gateway" "ngw" {
 resource "aws_route" "private" {
   route_table_id            = aws_route_table.example.id
   destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id = aws_internet_gateway.ngw.id
+  nat_gateway_id = aws_nat_gateway.ngw.id
 }
 
 resource "aws_route" "database" {
   route_table_id            = aws_route_table.example.id
   destination_cidr_block    = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.ngw.id
+  gateway_id = aws_nat_gateway.ngw.id
 }
 
 
