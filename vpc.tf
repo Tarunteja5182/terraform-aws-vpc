@@ -46,11 +46,27 @@ resource "aws_subnet" "database" {
   }
 }
 
-resource "aws_route_table" "example" {
+resource "aws_route_table" "public" {
   vpc_id = aws_vpc.mod_vpc.id
 
   tags = {
-    Name = "public-route"
+    Name = "Roboshop-dev-public-route-table"
+  }
+}
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.mod_vpc.id
+
+  tags = {
+    Name = "Roboshop-private-route-table"
+  }
+}
+
+resource "aws_route_table" "database" {
+  vpc_id = aws_vpc.mod_vpc.id
+
+  tags = {
+    Name = "Roboshop-database-route-table"
   }
 }
 
