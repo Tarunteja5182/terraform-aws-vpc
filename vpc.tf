@@ -20,7 +20,7 @@ resource "aws_subnet" "public" {
   cidr_block = var.public_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev-public-${data.aws_availability_zones.available[count.index]}"
+    Name = "roboshop-dev-public-${local.az_names[count.index]}"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "private" {
   cidr_block = var.private_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev-private"
+    Name = "roboshop-dev-private-${local.az_names[count.index]}"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "database" {
   cidr_block = var.database_subnet_cidr[count.index]
 
   tags = {
-    Name = "roboshop-dev-database"
+    Name = "roboshop-dev-database-${local.az_names[count.index]}"
   }
 }
 
