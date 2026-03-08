@@ -18,6 +18,8 @@ resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.mod_vpc.id
   availability_zone   = data.aws_availability_zones.available.names[count.index]
   cidr_block = var.public_subnet_cidr[count.index]
+  map_public_ip_on_launch = true
+
 
   tags = {
     Name = "roboshop-dev-public-${local.az_names[count.index]}"
